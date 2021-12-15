@@ -7,6 +7,7 @@ import com.quickbase.devint.PopulationService;
 import com.quickbase.devint.PopulationServiceImpl;
 
 import java.sql.Connection;
+import java.util.Locale;
 
 /**
  * The main method of the executable JAR generated from this repository. This is to let you
@@ -20,12 +21,17 @@ public class Main {
 
         DBManager dbm = new DBManagerImpl();
         Connection c = dbm.getConnection();
-        if (null == c ) {
+        if (null == c) {
             System.out.println("failed.");
             System.exit(1);
         }
 
+        System.out.println("--------------------");
+        System.out.println("Country populations");
+        System.out.println("--------------------");
+
         PopulationService populationService = new PopulationServiceImpl(dbm, new ConcreteStatService());
-        populationService.getCountryPopulations().forEach(System.out::println);
+        populationService.getCountryPopulations().forEach(p ->
+                System.out.printf(Locale.ROOT, "%s %,d%n", p.getLeft(), p.getRight()));
     }
 }

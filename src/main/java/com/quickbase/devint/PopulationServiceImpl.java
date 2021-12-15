@@ -17,7 +17,7 @@ public class PopulationServiceImpl implements PopulationService {
 
     public Iterable<Pair<String, Integer>> getCountryPopulations() {
         Map<String, Pair<String, Integer>> map = new HashMap<>();
-        statService.GetCountryPopulations().forEach(p -> map.put(p.getKey(), p));
+        statService.getCountryPopulations().forEach(p -> map.put(p.getKey(), p));
         dbManager.getCountryPopulations().forEach(p -> map.put(p.getKey(), p));
         return map.values();
     }

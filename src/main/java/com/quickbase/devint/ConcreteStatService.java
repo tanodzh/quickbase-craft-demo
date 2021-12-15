@@ -1,10 +1,10 @@
 package com.quickbase.devint;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ConcreteStatService implements IStatService {
 
@@ -12,7 +12,7 @@ public class ConcreteStatService implements IStatService {
 	/**
 	 * Returns an unordered list of countries and their populations
 	 */
-	public List<Pair<String, Integer>> GetCountryPopulations() {
+	public List<Pair<String, Integer>> getCountryPopulations() {
 		List<Pair<String, Integer>> output = new ArrayList<Pair<String, Integer>>();
 		
 		// Pretend this calls a REST API somewhere
