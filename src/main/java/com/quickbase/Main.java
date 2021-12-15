@@ -1,7 +1,10 @@
 package com.quickbase;
 
+import com.quickbase.devint.ConcreteStatService;
 import com.quickbase.devint.DBManager;
 import com.quickbase.devint.DBManagerImpl;
+import com.quickbase.devint.PopulationService;
+import com.quickbase.devint.PopulationServiceImpl;
 
 import java.sql.Connection;
 
@@ -11,7 +14,7 @@ import java.sql.Connection;
  * to demonstrate in a different way (e.g. if you're using a framework)
  */
 public class Main {
-    public static void main( String args[] ) {
+    public static void main(String[] args) {
         System.out.println("Starting.");
         System.out.print("Getting DB Connection...");
 
@@ -22,5 +25,7 @@ public class Main {
             System.exit(1);
         }
 
+        PopulationService populationService = new PopulationServiceImpl(dbm, new ConcreteStatService());
+        populationService.getCountryPopulations().forEach(System.out::println);
     }
 }
