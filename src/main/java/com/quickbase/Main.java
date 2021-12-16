@@ -7,6 +7,7 @@ import com.quickbase.devint.PopulationService;
 import com.quickbase.devint.PopulationServiceImpl;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Locale;
 
 /**
@@ -30,8 +31,16 @@ public class Main {
         System.out.println("Country populations");
         System.out.println("--------------------");
 
-        PopulationService populationService = new PopulationServiceImpl(dbm, new ConcreteStatService());
-        populationService.getCountryPopulations().forEach(p ->
-                System.out.printf(Locale.ROOT, "%s %,d%n", p.getLeft(), p.getRight()));
+        try {
+            PopulationService populationService = new PopulationServiceImpl(dbm, new ConcreteStatService());
+            populationService.getCountryPopulations().forEach(p ->
+                    System.out.printf(Locale.ROOT, "%s %,d%n", p.getLeft(), p.getRight()));
+        } finally {
+            try {
+                c.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

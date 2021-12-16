@@ -49,13 +49,22 @@ public class DBManagerImpl implements DBManager {
     public Collection<Pair<String, Integer>> getCountryPopulations() {
         Collection<Pair<String, Integer>> populations = new ArrayList<>();
 
+        ResultSet rs = null;
         try {
-            ResultSet rs = countryPopulationsStatement.executeQuery();
-            while(rs.next()){
+            rs = countryPopulationsStatement.executeQuery();
+            while (rs.next()) {
                 populations.add(ImmutablePair.of(rs.getString(1), rs.getInt(2)));
             }
         } catch (SQLException e) {
             System.err.println("sql exception:" + e.getStackTrace());
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         return populations;
